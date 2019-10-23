@@ -1,13 +1,17 @@
 clear all
 close all
 
-M = csvread('capital_federal_conv_neg.csv');
+M = csvread('capital_federal.csv');
 
-Xmin = -9016.359751;
-Ymin = -9904.671966;
-Xmax = 8959.042825 ;
-Ymax = 9958.470781;
-   
+% Xmin = -9016.359751;
+% Ymin = -9904.671966;
+% Xmax = 8959.042825 ;
+% Ymax = 9958.470781;
+
+Xmin = min(M(:,1));
+Xmax = max(M(:,1));
+Ymin = min(M(:,2));
+Ymax = max(M(:,2));
 
 sqr = [Xmin Ymin; Xmin Ymax; Xmax Ymax; Xmax Ymin; Xmin Ymin];
 
