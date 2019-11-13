@@ -5,7 +5,7 @@
 
 Ejecucion de ejemplo
 
-<code>main_caso1.py -f capital_federal.csv<code>
+<code>main_caso1.py -f casos_de_prueba/capital_federal.csv<code>
 
 Resultado
 
@@ -15,9 +15,15 @@ Se mostrara en pantalla ademas, el grafico del poligono junto con el MBR
 
 ## Solucion Inicial: main_caso2.py
 
-Ejecucion de ejemplo
+Ejecuciones de ejemplo
 
-<code>main_caso2.py -f capital_federal_conv.csv<code>
+<code>main_caso2.py -f casos_de_prueba/caso1.csv
+main_caso2.py -f casos_de_prueba/caso2.csv
+main_caso2.py -f casos_de_prueba/caso3.csv
+main_caso2.py -f casos_de_prueba/caso4.csv
+main_caso2.py -f casos_de_prueba/caso5.csv
+main_caso2.py -f casos_de_prueba/caso6.csv
+main_caso2.py -f casos_de_prueba/capital_federal_conv.csv<code>
 
 Resultado
 

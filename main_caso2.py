@@ -6,40 +6,54 @@ import csv
 import math
 
 
-# Funcion que retorna un X o un Y minimo o maximo:
-#     get_min:
-#         - True: Retorna un minimo
-#         - False: Retorna un maximo
+# Funcion que retorna un X o un Y minimo:
 #     xy:
 #         - 0 : Retorna X
 #         - 1 : Retorna Y
 #     Ejemplo:
-#         getXY(...., True, 1) -> Retorna Y minimo
+#         get_minimo(...., 1) -> Retorna Y minimo
 
-def getXY(point_list, ini, end, get_min, xy):
+def get_minimo(pl, ini, end, xy):
     n = end - ini + 1
     mid = math.floor((end+ini+1)/2)
 
     if n == 2:
-        if get_min == True:
-            cond = point_list[ini][xy] < point_list[end][xy]
+        if pl[ini][xy] < pl[end][xy] :
+            return pl[ini][xy]
         else:
-            cond = point_list[ini][xy] > point_list[end][xy]
-
-        if cond:
-            return point_list[ini][xy]
-        else:
-            return point_list[end][xy]
+            return pl[end][xy]
     else:
-        if get_min == True:
-            cond = point_list[mid][xy] < point_list[mid+1][xy]
+        if (pl[end][xy] > pl[ini][xy] and pl[mid][xy] < pl[mid+1][xy]) \
+            or (pl[end][xy] < pl[ini][xy] and pl[mid][xy] < pl[mid+1][xy] and pl[ini][xy] >= pl[mid][xy]) \
+            or (pl[end][xy] > pl[ini][xy] and pl[mid][xy] > pl[mid+1][xy] and pl[ini][xy] <= pl[mid][xy]):
+            return get_minimo(pl, ini, mid, xy)
         else:
-            cond = point_list[mid][xy] > point_list[mid+1][xy]
+            return get_minimo(pl, mid, end, xy)
+    
 
-        if cond:
-            return getXY(point_list, ini, mid, get_min, xy)
+# Funcion que retorna un X o un Y maximo:
+#     xy:
+#         - 0 : Retorna X
+#         - 1 : Retorna Y
+#     Ejemplo:
+#         get_maximo(...., 1) -> Retorna Y maximo
+
+def get_maximo(pl, ini, end, xy):
+    n = end - ini + 1
+    mid = math.floor((end+ini+1)/2)
+    
+    if n == 2:
+        if pl[ini][xy] > pl[end][xy] :
+            return pl[ini][xy]
         else:
-            return getXY(point_list, mid, end, get_min, xy)
+            return pl[end][xy]
+    else:
+        if (pl[end][xy] < pl[ini][xy] and pl[mid][xy] > pl[mid+1][xy]) \
+            or (pl[end][xy] > pl[ini][xy] and pl[mid][xy] > pl[mid+1][xy] and pl[ini][xy] <= pl[mid][xy]) \
+            or (pl[end][xy] < pl[ini][xy] and pl[mid][xy] < pl[mid+1][xy] and pl[ini][xy] >= pl[mid][xy]):
+            return get_maximo(pl, ini, mid, xy)
+        else:
+            return get_maximo(pl, mid, end, xy)
     
 # Programa Principal
 def main():
@@ -48,10 +62,10 @@ def main():
     csv_reader = csv.reader(archivo_coordenadas, delimiter=',')
     p_list = [[float(i[0]), float(i[1])] for i in list(csv_reader)]
 
-    xmin = getXY(p_list,0, len(p_list) - 1, True, 0) 
-    ymin = getXY(p_list,0, len(p_list) - 1, True, 1) 
-    xmax = getXY(p_list,0, len(p_list) - 1, False, 0) 
-    ymax = getXY(p_list,0, len(p_list) - 1, False, 1)
+    xmin = get_minimo(p_list,0, len(p_list) - 1, 0) 
+    ymin = get_minimo(p_list,0, len(p_list) - 1, 1) 
+    xmax = get_maximo(p_list,0, len(p_list) - 1, 0) 
+    ymax = get_maximo(p_list,0, len(p_list) - 1, 1)  
 
     print('[',xmin, ymin, xmax, ymax,']')
 
@@ -63,7 +77,7 @@ def main():
         
     fig, ax = plt.subplots()
     ax.plot(Xsq, Ysq)
-    ax.plot(ft_list[:,0], ft_list[:,1])
+    ax.plot(ft_list[:,0] , ft_list[:,1])
     fig.suptitle('Algoritmo Caso 2')
     plt.show()    
     return 
